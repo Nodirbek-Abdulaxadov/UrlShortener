@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseNpgsql(builder.Configuration.GetConnectionString("LocalSqlServer")));
+	options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSql")));
 
 builder.Services.AddTransient<IUrlInterface, UrlRepository>();
 
