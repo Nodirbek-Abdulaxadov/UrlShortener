@@ -30,7 +30,7 @@ public class UrlRepository : IUrlInterface
 			UrlModel model = new()
 			{
 				OriginalUrl = link,
-				ShortUrl = "https://localhost:44372/" + shortUrl
+				ShortUrl = "https://0.1kb.uz/" + shortUrl
 			};
 
 			urlModels.Add(model);
