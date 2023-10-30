@@ -6,17 +6,18 @@ namespace UrlShortener.Data.Repositories;
 
 public class UrlRepository : IUrlInterface
 {
-	private readonly AppDbContext _dbContext;
+	//private readonly AppDbContext _dbContext;
 
-	public UrlRepository(AppDbContext dbContext)
-    {
-		_dbContext = dbContext;
-	}
+	List<UrlModel> urlModels = new List<UrlModel>();
+	//public UrlRepository(AppDbContext dbContext)
+ //   {
+	//	_dbContext = dbContext;
+	//}
 
     public async Task<UrlModel> CreateLinkAsync(string link)
 	{
-		var urlModel = _dbContext.UrlModels
-								 .FirstOrDefault(x => x.OriginalUrl == link);
+		var urlModel = urlModels//_dbContext.UrlModels
+								.FirstOrDefault(x => x.OriginalUrl == link);
 		if (urlModel != null)
 		{
 			return urlModel;
@@ -32,8 +33,7 @@ public class UrlRepository : IUrlInterface
 				ShortUrl = "https://localhost:44372/" + shortUrl
 			};
 
-			_dbContext.UrlModels.Add(model);
-			await _dbContext.SaveChangesAsync();
+			urlModels.Add(model);
 			return model;
 		}
 		else
@@ -44,8 +44,8 @@ public class UrlRepository : IUrlInterface
 
 	public async Task<UrlModel> GetByShortUrl(string link)
 	{
-		var model = await _dbContext.UrlModels
-				.FirstOrDefaultAsync(u => u.ShortUrl.EndsWith(link));
+		var model = urlModels
+				.FirstOrDefault(u => u.ShortUrl.EndsWith(link));
 		return model;
 	}
 
@@ -66,5 +66,5 @@ public class UrlRepository : IUrlInterface
 	}
 
 	private bool IsNotExist(string link)
-		=> !_dbContext.UrlModels.Any(i => i.ShortUrl == link);
+		=> !urlModels.Any(i => i.ShortUrl == link);
 }
