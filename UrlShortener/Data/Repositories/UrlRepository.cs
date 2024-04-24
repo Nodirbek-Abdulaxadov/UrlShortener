@@ -29,7 +29,7 @@ public class UrlRepository : IUrlInterface
 			UrlModel model = new()
 			{
 				OriginalUrl = link,
-				ShortUrl = "https://1kb.uz/" + shortUrl
+				ShortUrl = "1kb.uz/" + shortUrl
 			};
 
 			_dbContext.UrlModels.Add(model);
@@ -42,10 +42,10 @@ public class UrlRepository : IUrlInterface
 		}
 	}
 
-	public async Task<UrlModel?> GetByShortUrl(string link)
+	public Task<UrlModel?> GetByShortUrl(string link)
 	{
 		var model = _dbContext.UrlModels.FirstOrDefault(u => u.ShortUrl.EndsWith(link));
-		return model;
+		return Task.FromResult(model);
 	}
 
 
