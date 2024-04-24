@@ -6,17 +6,16 @@ namespace UrlShortener.Data.Repositories;
 
 public class UrlRepository : IUrlInterface
 {
-	//private readonly AppDbContext _dbContext;
+	private readonly AppDbContext _dbContext;
 
-	List<UrlModel> urlModels = new List<UrlModel>();
-	//public UrlRepository(AppDbContext dbContext)
- //   {
-	//	_dbContext = dbContext;
-	//}
-
-    public async Task<UrlModel> CreateLinkAsync(string link)
+	public UrlRepository(AppDbContext dbContext)
 	{
-		var urlModel = urlModels//_dbContext.UrlModels
+		_dbContext = dbContext;
+	}
+
+	public async Task<UrlModel> CreateLinkAsync(string link)
+	{
+		var urlModel = _dbContext.UrlModels
 								.FirstOrDefault(x => x.OriginalUrl == link);
 		if (urlModel != null)
 		{
@@ -33,7 +32,8 @@ public class UrlRepository : IUrlInterface
 				ShortUrl = "https://1kb.uz/" + shortUrl
 			};
 
-			urlModels.Add(model);
+			_dbContext.UrlModels.Add(model);
+			await _dbContext.SaveChangesAsync();
 			return model;
 		}
 		else
@@ -42,10 +42,9 @@ public class UrlRepository : IUrlInterface
 		}
 	}
 
-	public async Task<UrlModel> GetByShortUrl(string link)
+	public async Task<UrlModel?> GetByShortUrl(string link)
 	{
-		var model = urlModels
-				.FirstOrDefault(u => u.ShortUrl.EndsWith(link));
+		var model = _dbContext.UrlModels.FirstOrDefault(u => u.ShortUrl.EndsWith(link));
 		return model;
 	}
 
@@ -66,5 +65,5 @@ public class UrlRepository : IUrlInterface
 	}
 
 	private bool IsNotExist(string link)
-		=> !urlModels.Any(i => i.ShortUrl == link);
+		=> !_dbContext.UrlModels.Any(i => i.ShortUrl == link);
 }

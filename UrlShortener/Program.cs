@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseSqlite(builder.Configuration.GetConnectionString("sqlite")));
 
-builder.Services.AddSingleton<IUrlInterface, UrlRepository>();
+builder.Services.AddTransient<IUrlInterface, UrlRepository>();
 
 var app = builder.Build();
 

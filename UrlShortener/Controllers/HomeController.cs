@@ -25,7 +25,7 @@ public class HomeController : Controller
 		return View("index", model);
 	}
 
-	[HttpGet("{shortUrl:length(4)}")]
+	[HttpGet("{shortUrl:length(5)}")]
     public async Task<IActionResult> Go(string shortUrl)
 	{
 		if (shortUrl.ToLower() == "home")
