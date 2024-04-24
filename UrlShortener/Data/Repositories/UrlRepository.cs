@@ -30,7 +30,7 @@ public class UrlRepository : IUrlInterface
 			UrlModel model = new()
 			{
 				OriginalUrl = link,
-				ShortUrl = "https://0.1kb.uz/" + shortUrl
+				ShortUrl = "https://1kb.uz/" + shortUrl
 			};
 
 			urlModels.Add(model);
@@ -54,9 +54,9 @@ public class UrlRepository : IUrlInterface
 	{
 		const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		Random random = new Random();
-		StringBuilder sb = new StringBuilder(4);
+		StringBuilder sb = new StringBuilder(5);
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			int index = random.Next(characters.Length);
 			sb.Append(characters[index]);
