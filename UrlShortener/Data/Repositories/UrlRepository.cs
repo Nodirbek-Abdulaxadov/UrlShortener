@@ -42,7 +42,28 @@ public class UrlRepository : IUrlInterface
 		}
 	}
 
-	public Task<UrlModel?> GetByShortUrl(string link)
+    public async Task<UrlModel> CreateMockLinkAsync(string link)
+    {
+        var urlModel = _dbContext.UrlModels
+                                .FirstOrDefault(x => x.OriginalUrl == link);
+        if (urlModel != null)
+        {
+            return urlModel;
+        }
+
+        string shortUrl = GenerateRandomString();
+        UrlModel model = new()
+        {
+            OriginalUrl = link,
+            ShortUrl = "1kb.uz/" + shortUrl
+        };
+
+        _dbContext.UrlModels.Add(model);
+        await _dbContext.SaveChangesAsync();
+        return model;
+    }
+
+    public Task<UrlModel?> GetByShortUrl(string link)
 	{
 		var model = _dbContext.UrlModels.FirstOrDefault(u => u.ShortUrl.EndsWith(link));
 		return Task.FromResult(model);

@@ -5,5 +5,6 @@ namespace UrlShortener.Data.Repositories;
 public interface IUrlInterface
 {
 	Task<UrlModel> CreateLinkAsync(string link);
-	Task<UrlModel?> GetByShortUrl(string link);
+    Task<UrlModel> CreateMockLinkAsync(string link);
+    Task<UrlModel?> GetByShortUrl(string link);
 }

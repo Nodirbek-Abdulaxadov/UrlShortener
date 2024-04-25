@@ -10472,7 +10472,8 @@
       "Microsoft.ApplicationInsights.AspNetCore >= 2.15.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.3",
-      "Microsoft.EntityFrameworkCore.Tools >= 8.0.3"
+      "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
+      "Npgsql >= 8.0.2"
     ]
   },
   "packageFolders": {
@@ -10548,6 +10549,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.3, )"
+          },
+          "Npgsql": {
+            "target": "Package",
+            "version": "[8.0.2, )"
           }
         },
         "imports": [

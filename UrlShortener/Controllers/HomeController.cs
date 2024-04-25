@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 using UrlShortener.Data.Repositories;
 using UrlShortener.Models;
 
@@ -16,6 +17,29 @@ public class HomeController : Controller
 	public IActionResult Index()
 	{
 		return View();
+	}
+
+	public async Task<IActionResult> Mock()
+	{
+		var sql = System.IO.File.ReadAllText("short.sql");
+
+        NpgsqlConnection connection = new("Host=localhost;Database=UrlDB1;User ID=postgres; Password=1234;Port=5432;");
+		try
+		{
+            connection.Open();
+			NpgsqlCommand command = new(sql, connection);
+			await command.ExecuteNonQueryAsync();
+        }
+		catch (Exception ex)
+		{
+			return BadRequest(ex.Message);
+        }
+		finally
+        {
+            connection.Close();
+        }
+
+		return RedirectToAction("index");
 	}
 
 	[HttpPost]
