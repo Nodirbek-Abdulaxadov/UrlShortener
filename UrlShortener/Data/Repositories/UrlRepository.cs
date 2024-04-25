@@ -27,8 +27,9 @@ public class UrlRepository : IUrlInterface
 		if (IsNotExist(shortUrl))
 		{
 			UrlModel model = new()
-			{
-				OriginalUrl = link,
+            {
+                Id = _dbContext.UrlModels.AsNoTracking().ToList().Last().Id + 1,
+                OriginalUrl = link,
 				ShortUrl = "1kb.uz/" + shortUrl
 			};
 
